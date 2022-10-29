@@ -1,0 +1,27 @@
+type Book{
+    id:ID!
+    title:String!
+    category:BookCategories
+    author:Author
+}
+enum BookCategories{
+    comic,
+    horror
+    }
+author{
+    id:ID!
+    name:String!
+    }
+
+//resolvers
+def resolve_author(obj):
+        return{
+            id:obj.id
+            name.obj.name
+        }
+def resolve_book_title(obj)
+        return obj.title
+
+class BookType(ToObjectType):
+        Class Meta:
+            model = Book
