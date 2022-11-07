@@ -1,0 +1,2 @@
+In Go language we can use a concept called Defer to defer the call of function until the enclosing function is done processing.
+The arguments passed to Defer are evaluated at the time of call, it is only the function execution itself that happens after the enclosing function is done processing.
