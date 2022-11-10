@@ -46,4 +46,18 @@ func MakeLoadBalancer(amount int) {
 	router.HandleFunc("/loadbalancer", makeRequest(&lb, &ep))
 
 	// Listen and Server
+	log.Fatal(server.ListenAndServe())
+}
+
+
+
+func makeRequest(lb *LoadBalancer,ep *EndPoints) func(w http.ResponseWriter,r *http.Request){
+	return func(w http.ResponseWriter, r *http.Request){
+		for !testServer(ep.List[0].String()){
+			ep.Shuffle()
+		}
+		lb.RevProxy = *httputil.NewSingleHostReverseProxy(ep.List[0])
+		ep.Shuffle()
+		lb.RevProxy.ServeHTTP(w,r)
+	}
 }
