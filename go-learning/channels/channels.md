@@ -1,0 +1,2 @@
+Using channels we can send or receive data. We need to use a special operator for this called channel operator. The Channel operator is represented as "<-" (please ignore the quotes).
+The benefit of using channels is that, we can synchronize our data without using special lock libraries.
