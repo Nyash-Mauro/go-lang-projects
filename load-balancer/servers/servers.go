@@ -20,3 +20,9 @@ func (s*ServerList) Populate(amount int){
 		s.Ports = append(s.Ports, x)
 	}
 }
+
+func (s*ServerList) Pop() int{
+	port := s.Ports[0]
+	s.Ports = s.Ports[1:]
+	return port
+}
