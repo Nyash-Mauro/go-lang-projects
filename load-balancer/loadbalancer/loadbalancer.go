@@ -61,3 +61,8 @@ func makeRequest(lb *LoadBalancer,ep *EndPoints) func(w http.ResponseWriter,r *h
 		lb.RevProxy.ServeHTTP(w,r)
 	}
 }
+func createEndpoint(endpoint string,idx int) *url.URL {
+	link := endpoint + strconv.Itoa(idx)
+	url,_ :=url.Parse(link)
+	return url
+}
