@@ -26,3 +26,21 @@ func (s*ServerList) Pop() int{
 	s.Ports = s.Ports[1:]
 	return port
 }
+func RunServers(amount int){
+
+	// server list obj
+	var myServerList Serverlist
+	myServerList.Populate(amount)
+	//waitgroup 
+	var wg sync.WaitGroup
+	wg.Add(amount)
+	defer wg.Wait()
+
+	for x := 0; x < amount; x++ {
+		go makeServers(&myServerList, wg)
+	}
+}
+
+func makeServers(sl *ServerList,wg sync.WaitGroup){
+	
+}
