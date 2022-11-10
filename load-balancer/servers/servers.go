@@ -29,7 +29,7 @@ func (s*ServerList) Pop() int{
 func RunServers(amount int){
 
 	// server list obj
-	var myServerList Serverlist
+	var myServerList ServerList
 	myServerList.Populate(amount)
 	//waitgroup 
 	var wg sync.WaitGroup
@@ -42,5 +42,30 @@ func RunServers(amount int){
 }
 
 func makeServers(sl *ServerList,wg sync.WaitGroup){
-	
+
+	// router
+	r := http.NewServeMux()
+	defer wg.Done()
+
+	port := sl.Pop()
+	// server
+	server := http.Server{
+		Addr:    fmt.Sprintf(":808%d", port),
+		Handler: r,
+	}
+
+	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprintf(w, "Server %d", port)
+	})
+
+	r.HandleFunc("/shutdown", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(400)
+		w.Write([]byte("400 - Server Shut Down!"))
+		server.Shutdown(context.Background())
+	})
+
+	server.ListenAndServe()
+}
+
 }
