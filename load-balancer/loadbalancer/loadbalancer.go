@@ -18,3 +18,8 @@ type LoadBalancer struct {
 type EndPoints struct{
 	List []*url.URL
 }
+ func (e *EndPoints) Shuffle() {
+	temp := e.List[0]
+	e.List = e.List[1:]
+	e.List = append(e.List, temp)
+ }
