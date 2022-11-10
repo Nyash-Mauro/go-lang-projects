@@ -67,5 +67,3 @@ func makeServers(sl *ServerList,wg sync.WaitGroup){
 
 	server.ListenAndServe()
 }
-
-}

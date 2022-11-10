@@ -1,6 +1,6 @@
 package main
 
-import "lb/loadbalancer"
+import "loadbalancer/loadbalancer"
 
 func main(){
 	loadbalancer.MakeLloadBalancer(5)
