@@ -42,7 +42,6 @@ func RunServers(amount int){
 }
 
 func makeServers(sl *ServerList,wg sync.WaitGroup){
-
 	// router
 	r := http.NewServeMux()
 	defer wg.Done()
