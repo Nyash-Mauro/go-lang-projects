@@ -38,3 +38,13 @@ func NewYamlUrlMapper(filename string) (func(string) (string, bool), error) {
 	return NewBaseUrlMapper(mapping), nil
 }
 
+func NewHttpRedirectHandler(mapper func(string) (string,bool), fallback http.Handler) http.HandlerFunc{
+	return func(w  http.ResponseWriter, r *http.Request){
+		if url, ok := mapper(r.URL.Path); ok{
+				log.Printf("Redirecting %s to %s\n", r.URL.Path, url)
+				http.Redirect(w,r ,url, http.StatusMovedPermanently)
+		} else{
+			fallback.ServeHTTP(w,r)
+		}
+	}
+}
