@@ -35,3 +35,6 @@ func defaultMux() *http.ServeMux {
 	mux.HandleFunc("/",hello)
 	return mux
 }
+func hello(w http.ResponseWriter, r *http.Request){
+	fmt.Println(w, "Hello Nyash")
+}
